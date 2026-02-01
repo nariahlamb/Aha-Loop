@@ -1,0 +1,11 @@
+{
+  "memberId": "beta",
+  "name": "Beta",
+  "role": "Committee Member",
+  "status": "sleeping",
+  "lastAwakened": null,
+  "lastAction": null,
+  "sessionCount": 0,
+  "decisionsParticipated": 0,
+  "interventionsInitiated": 0
+}

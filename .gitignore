@@ -1,0 +1,36 @@
+# Project generated files (created when running Aha Loop)
+project.vision.md
+project.vision-analysis.md
+project.architecture.md
+project.roadmap.json
+
+# Aha Loop temporary files
+scripts/aha-loop/prd.json
+scripts/aha-loop/progress.txt
+scripts/aha-loop/.last-branch
+scripts/aha-loop/archive/
+
+# Vendor source code (fetched for AI research)
+.vendor/rust/
+.vendor/npm/
+.vendor/python/
+
+# Parallel exploration worktrees
+.worktrees/
+
+# AI observability logs
+logs/ai-thoughts.md
+
+# Documentation review reports
+docs-review-report.md
+
+# Skill registry
+.claude/skills/.registry.json
+
+# God Committee runtime files
+.god/.pause
+.god/.awakener-state
+.god/.awakener.pid
+.god/council/chamber.lock
+.god/council/chamber.lock.tmp
+logs/awakener.log

@@ -1,0 +1,38 @@
+{
+  "version": 1,
+  "events": [
+    {
+      "id": "evt-1769670319-7268",
+      "type": "snapshot",
+      "description": "System state snapshot taken",
+      "timestamp": "2026-01-29T07:05:19Z",
+      "data": {
+        "version": 1,
+        "lastUpdated": "2026-01-29T07:05:19Z",
+        "execution": {
+          "orchestratorRunning": false,
+          "currentPhase": null,
+          "currentPRD": null,
+          "currentStory": null
+        },
+        "health": {
+          "lastTestRun": null,
+          "testsPassing": null,
+          "lintErrors": 0,
+          "typeErrors": null
+        },
+        "progress": {
+          "completedPRDs": 0,
+          "completedMilestones": 0,
+          "totalStories": 0,
+          "completedStories": 0
+        },
+        "resources": {
+          "activeWorktrees": 0,
+          "vendorSize": "2.3M",
+          "logSize": "12K"
+        }
+      }
+    }
+  ]
+}

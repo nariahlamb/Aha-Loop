@@ -1,0 +1,67 @@
+{
+  "version": 1,
+  "council": {
+    "members": ["alpha", "beta", "gamma"],
+    "quorum": 2,
+    "emergencyQuorum": 1,
+    "sessionTimeout": 3600
+  },
+  "awakening": {
+    "randomInterval": {
+      "minHours": 2,
+      "maxHours": 8
+    },
+    "scheduledChecks": ["prd_complete", "milestone_complete", "daily"],
+    "alertThresholds": {
+      "consecutiveFailures": 3,
+      "testCoverageDropPercent": 10,
+      "codeQualityScoreDrop": 20,
+      "staleTaskHours": 24
+    },
+    "randomTopics": [
+      "Overall Code Quality Assessment",
+      "Architecture Decision Review",
+      "Knowledge Base Integrity Check",
+      "Skill Effectiveness Review",
+      "Long-term Technical Debt Assessment",
+      "Open Discussion: Project Direction",
+      "No Topic: Free Observation and Thinking",
+      "Execution Layer Efficiency Analysis",
+      "Documentation Consistency Check",
+      "Security Review"
+    ]
+  },
+  "powers": {
+    "allowTermination": true,
+    "allowRollback": true,
+    "allowCodeModification": true,
+    "allowSkillModification": true,
+    "allowConfigModification": true,
+    "allowProcessKill": true,
+    "requireConsensusFor": ["termination", "major_rollback", "skill_deletion"],
+    "soloActionAllowed": ["observation", "minor_fix", "documentation"]
+  },
+  "observation": {
+    "snapshotInterval": "15m",
+    "retentionDays": 30,
+    "watchPaths": [
+      "scripts/aha-loop/",
+      ".claude/skills/",
+      "knowledge/",
+      "logs/",
+      "project.roadmap.json",
+      "project.architecture.md"
+    ],
+    "alertPatterns": [
+      "error",
+      "failed",
+      "exception",
+      "panic"
+    ]
+  },
+  "communication": {
+    "lockTimeoutSeconds": 60,
+    "messageRetentionDays": 7,
+    "maxInboxSize": 100
+  }
+}
