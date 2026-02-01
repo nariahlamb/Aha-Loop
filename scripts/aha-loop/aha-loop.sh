@@ -1,6 +1,6 @@
 #!/bin/bash
 # Aha Loop Executor - Autonomous AI agent loop with Research, Exploration & Plan Review
-# Usage: ./aha-loop.sh [--tool amp|claude] [--phase research|explore|plan-review|implement|all] [max_iterations]
+# Usage: ./aha-loop.sh [--tool amp|claude] [--phase research|explore|plan-review|implement|all] [--max-iterations N] [max_iterations]
 
 set -e
 
@@ -25,6 +25,14 @@ while [[ $# -gt 0 ]]; do
       ;;
     --phase=*)
       PHASE="${1#*=}"
+      shift
+      ;;
+    --max-iterations)
+      MAX_ITERATIONS="$2"
+      shift 2
+      ;;
+    --max-iterations=*)
+      MAX_ITERATIONS="${1#*=}"
       shift
       ;;
     *)
@@ -66,6 +74,7 @@ PLAN_REVIEW_ENABLED=true
 QUALITY_REVIEW_ENABLED=true
 EXPLORATION_ENABLED=true
 FETCH_SOURCE_CODE=true
+CONFIG_MAX_ITERATIONS=10
 
 if [ -f "$CONFIG_FILE" ]; then
   RESEARCH_ENABLED=$(jq -r '.phases.research.enabled // true' "$CONFIG_FILE")
@@ -73,6 +82,12 @@ if [ -f "$CONFIG_FILE" ]; then
   QUALITY_REVIEW_ENABLED=$(jq -r '.phases.qualityReview.enabled // true' "$CONFIG_FILE")
   EXPLORATION_ENABLED=$(jq -r '.phases.exploration.enabled // true' "$CONFIG_FILE")
   FETCH_SOURCE_CODE=$(jq -r '.phases.research.fetchSourceCode // true' "$CONFIG_FILE")
+  CONFIG_MAX_ITERATIONS=$(jq -r '.safeguards.maxIterationsPerStory // 10' "$CONFIG_FILE")
+fi
+
+# Apply config value for MAX_ITERATIONS only if not overridden by command line (still at default)
+if [ "$MAX_ITERATIONS" -eq 10 ] && [ "$CONFIG_MAX_ITERATIONS" != "10" ]; then
+  MAX_ITERATIONS="$CONFIG_MAX_ITERATIONS"
 fi
 
 # Ensure directories exist

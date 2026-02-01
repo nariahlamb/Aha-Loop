@@ -36,6 +36,7 @@ ROADMAP_FILE="$PROJECT_ROOT/project.roadmap.json"
 TOOL="claude"
 PHASE="all"
 MAX_PRDS=10
+MAX_ITERATIONS=10
 BUILD_VISION=false
 EXPLORE_TASK=""
 MAINTENANCE=false
@@ -66,6 +67,14 @@ while [[ $# -gt 0 ]]; do
       MAX_PRDS="$2"
       shift 2
       ;;
+    --max-iterations)
+      MAX_ITERATIONS="$2"
+      shift 2
+      ;;
+    --max-iterations=*)
+      MAX_ITERATIONS="${1#*=}"
+      shift
+      ;;
     --build-vision)
       BUILD_VISION=true
       shift
@@ -91,6 +100,7 @@ while [[ $# -gt 0 ]]; do
       echo "  --tool amp|claude    AI tool to use (default: claude)"
       echo "  --phase PHASE        Phase to run (vision|architect|roadmap|execute|all)"
       echo "  --max-prds N         Maximum PRDs to execute per run (default: 10)"
+      echo "  --max-iterations N   Maximum iterations per PRD (default: 10)"
       echo "  --build-vision       Interactive vision building"
       echo "  --explore TASK       Start parallel exploration for a task"
       echo "  --maintenance        Run maintenance tasks (doc cleanup, skill review)"
@@ -130,9 +140,12 @@ if [[ ! " $VALID_PHASES " =~ " $PHASE " ]]; then
   exit 1
 fi
 
-# Load config if exists
+# Load config if exists (only use config values if not overridden by command line)
+CONFIG_MAX_PRDS=10
+CONFIG_MAX_ITERATIONS=10
 if [ -f "$CONFIG_FILE" ]; then
-  MAX_PRDS=$(jq -r '.orchestrator.maxPRDsPerRun // 10' "$CONFIG_FILE")
+  CONFIG_MAX_PRDS=$(jq -r '.orchestrator.maxPRDsPerRun // 10' "$CONFIG_FILE")
+  CONFIG_MAX_ITERATIONS=$(jq -r '.safeguards.maxIterationsPerStory // 10' "$CONFIG_FILE")
   OBSERVABILITY_ENABLED=$(jq -r '.observability.enabled // true' "$CONFIG_FILE")
   PARALLEL_ENABLED=$(jq -r '.parallelExploration.enabled // true' "$CONFIG_FILE")
   DOC_MAINTENANCE_ENABLED=$(jq -r '.docMaintenance.enabled // true' "$CONFIG_FILE")
@@ -140,6 +153,14 @@ else
   OBSERVABILITY_ENABLED=true
   PARALLEL_ENABLED=true
   DOC_MAINTENANCE_ENABLED=true
+fi
+
+# Apply config values only if not overridden by command line (still at default)
+if [ "$MAX_PRDS" -eq 10 ] && [ "$CONFIG_MAX_PRDS" != "10" ]; then
+  MAX_PRDS="$CONFIG_MAX_PRDS"
+fi
+if [ "$MAX_ITERATIONS" -eq 10 ] && [ "$CONFIG_MAX_ITERATIONS" != "10" ]; then
+  MAX_ITERATIONS="$CONFIG_MAX_ITERATIONS"
 fi
 
 # Helper: Check for critical directives from God Committee
@@ -655,7 +676,7 @@ ${directives_ctx}"
     
     # Execute the PRD with aha-loop.sh
     echo "Running Aha Loop for $current_prd..."
-    "$SCRIPT_DIR/aha-loop.sh" --tool "$TOOL"
+    "$SCRIPT_DIR/aha-loop.sh" --tool "$TOOL" --max-iterations "$MAX_ITERATIONS"
     local aha_loop_exit=$?
     
     if [ $aha_loop_exit -eq 0 ]; then
