@@ -175,9 +175,13 @@ your-project/
 - [Ralph](https://github.com/snarktank/ralph) - 提供了核心的 PRD 执行循环思想
 - [Claude](https://www.anthropic.com/claude) - AI 能力支持
 
-## License
+## 许可证
 
 MIT
+
+## ⭐ Star 历史
+
+[![Star History Chart](https://api.star-history.com/svg?repos=YougLin-dev/Aha-Loop&type=Date)](https://star-history.com/#YougLin-dev/Aha-Loop&Date)
 
 ---
 

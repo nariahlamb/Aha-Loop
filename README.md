@@ -179,6 +179,10 @@ your-project/
 
 MIT
 
+## ⭐ Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=YougLin-dev/Aha-Loop&type=Date)](https://star-history.com/#YougLin-dev/Aha-Loop&Date)
+
 ---
 
 **Links:**
