@@ -121,7 +121,7 @@ Remove-Item ".codex\skills" -Force; cmd /c mklink /D ".codex\skills" "..\.agents
 
 ```bash
 # 运行 PRD 执行循环
-./scripts/aha-loop/aha-loop.sh
+./scripts/aha-loop/orchestrator.sh
 ```
 
 系统会自动为每个 Story 执行**五阶段工作流**：

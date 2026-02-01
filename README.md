@@ -121,7 +121,7 @@ Once planning is complete, run the autonomous execution loop:
 
 ```bash
 # Run PRD execution loop
-./scripts/aha-loop/aha-loop.sh
+./scripts/aha-loop/orchestrator.sh
 ```
 
 The system will automatically execute a **five-phase workflow** for each Story:

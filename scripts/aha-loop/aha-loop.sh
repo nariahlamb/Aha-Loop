@@ -387,10 +387,13 @@ echo ""
 if [ ! -f "$PRD_FILE" ]; then
   echo "Error: No prd.json found at $PRD_FILE"
   echo ""
-  echo "To get started:"
+  echo "To get started, use the orchestrator (recommended):"
+  echo "  ./scripts/aha-loop/orchestrator.sh"
+  echo ""
+  echo "Or manually prepare prd.json:"
   echo "  1. Create a PRD: Load the 'prd' skill and describe your feature"
   echo "  2. Convert to JSON: Load the prd-converter skill to convert PRD to prd.json"
-  echo "  3. Run Aha Loop: ./aha-loop.sh"
+  echo "  3. Then run: ./scripts/aha-loop/aha-loop.sh"
   exit 1
 fi
 
